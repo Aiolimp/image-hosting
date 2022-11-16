@@ -1,0 +1,23 @@
+<script>
+    var merge = function (intervals) {
+        let result = [];
+        intervals.sort(function (a, b) {
+            return a[0] - b[0]
+        })
+        if (intervals.length < 2) {
+            return intervals
+
+        }
+        let curr = intervals[0];
+        for (let interval of intervals) {
+            if (interval[0] <= curr[1]) {
+                curr = [curr[0], Math.max(curr[1], interval[1])]
+            } else {
+                result.push(curr)
+                curr = interval
+            }
+        }
+        result.push(curr)
+        return result;
+    };
+</script>
