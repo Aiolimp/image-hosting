@@ -1,23 +1,18 @@
 <script>
-    var merge = function (intervals) {
-        let result = [];
-        intervals.sort(function (a, b) {
-            return a[0] - b[0]
-        })
-        if (intervals.length < 2) {
-            return intervals
-
-        }
-        let curr = intervals[0];
-        for (let interval of intervals) {
-            if (interval[0] <= curr[1]) {
-                curr = [curr[0], Math.max(curr[1], interval[1])]
+    var majorityElement = function (nums) {
+        let map = new Map();
+        for (let i = 0; i < nums.length; i++) {
+            if (map.has(nums[i])) {
+                map.set(nums[i], map.get(nums[i]) + 1)
             } else {
-                result.push(curr)
-                curr = interval
+                map.set(nums[i], 1)
             }
         }
-        result.push(curr)
-        return result;
+        for (let i of map) {
+            if (i[1] > nums.length / 2) {
+                return i[0]
+            }
+        }
     };
+    console.log(majorityElement([3, 2, 3]))
 </script>
