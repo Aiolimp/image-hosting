@@ -1,18 +1,22 @@
 <script>
-    var majorityElement = function (nums) {
-        let map = new Map();
-        for (let i = 0; i < nums.length; i++) {
-            if (map.has(nums[i])) {
-                map.set(nums[i], map.get(nums[i]) + 1)
-            } else {
-                map.set(nums[i], 1)
+    var canCompleteCircuit = function (gas, cost) {
+        let gasSum = 0, costSum = 0, currentGas = 0, start = 0
+        for (let i = 0; i < gas.length; i++) {
+            gasSum += gas[i]
+            costSum += cost[i]
+        }
+        if (gasSum < costSum) {
+            return -1
+        }
+        for (let i = 0; i < gas.length; i++) {
+            currentGas = currentGas - cost[i] + gas[i]
+            if (currentGas < 0) {
+                currentGas = 0;
+                start = i + 1;
             }
         }
-        for (let i of map) {
-            if (i[1] > nums.length / 2) {
-                return i[0]
-            }
-        }
+        return start
     };
-    console.log(majorityElement([3, 2, 3]))
+    console.log(canCompleteCircuit([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]))
+
 </script>
