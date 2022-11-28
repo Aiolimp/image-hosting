@@ -1,22 +1,33 @@
 <script>
-    var canCompleteCircuit = function (gas, cost) {
-        let gasSum = 0, costSum = 0, currentGas = 0, start = 0
-        for (let i = 0; i < gas.length; i++) {
-            gasSum += gas[i]
-            costSum += cost[i]
+    var maxAreaOfIsland = function (grid) {
+        let maxcount = 0;
+        let count = 0;
+        function dfs(row, col) {
+            if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] === '0') {
+                return;
+            }
+            count++;
+            grid[row][col] = '0'
+            dfs(row - 1, col)
+            dfs(row + 1, col)
+            dfs(row, col - 1)
+            dfs(row, col + 1)
+            console.log(count)
+            maxcount = Math.max(maxcount, count)
         }
-        if (gasSum < costSum) {
-            return -1
-        }
-        for (let i = 0; i < gas.length; i++) {
-            currentGas = currentGas - cost[i] + gas[i]
-            if (currentGas < 0) {
-                currentGas = 0;
-                start = i + 1;
+        for (let row = 0; row < grid.length; row++) {
+            for (let col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] === '1') {
+                    dfs(row, col)
+                    count = 0;
+                    console.log(count)
+                }
             }
         }
-        return start
+        return maxcount;
     };
-    console.log(canCompleteCircuit([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]))
+    let grid = [[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]]
+
+    console.log(maxAreaOfIsland(grid))
 
 </script>
