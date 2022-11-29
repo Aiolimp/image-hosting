@@ -1,33 +1,27 @@
 <script>
-    var maxAreaOfIsland = function (grid) {
-        let maxcount = 0;
-        let count = 0;
+    var islandPerimeter = function (grid) {
         function dfs(row, col) {
-            if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] === '0') {
-                return;
+            if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] === 0) {
+                return 1
             }
-            count++;
-            grid[row][col] = '0'
-            dfs(row - 1, col)
-            dfs(row + 1, col)
-            dfs(row, col - 1)
-            dfs(row, col + 1)
-            console.log(count)
-            maxcount = Math.max(maxcount, count)
+            if (grid[row][col] === 2) {
+                return 0
+            }
+            grid[row][col] = 2;
+            return dfs(row - 1, col) + dfs(row + 1, col) + dfs(row, col - 1) + dfs(row, col + 1)
+
         }
         for (let row = 0; row < grid.length; row++) {
             for (let col = 0; col < grid[0].length; col++) {
-                if (grid[row][col] === '1') {
-                    dfs(row, col)
-                    count = 0;
-                    console.log(count)
+                if (grid[row][col] === 1) {
+                    console.log(row, col)
+                    return dfs(row, col)
                 }
             }
         }
-        return maxcount;
     };
-    let grid = [[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]]
+    let grid = [[0, 1, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [1, 1, 0, 0]]
 
-    console.log(maxAreaOfIsland(grid))
+    console.log(islandPerimeter(grid))
 
 </script>
