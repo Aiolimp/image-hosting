@@ -1,27 +1,19 @@
 <script>
-    var islandPerimeter = function (grid) {
-        function dfs(row, col) {
-            if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] === 0) {
-                return 1
-            }
-            if (grid[row][col] === 2) {
-                return 0
-            }
-            grid[row][col] = 2;
-            return dfs(row - 1, col) + dfs(row + 1, col) + dfs(row, col - 1) + dfs(row, col + 1)
-
-        }
-        for (let row = 0; row < grid.length; row++) {
-            for (let col = 0; col < grid[0].length; col++) {
-                if (grid[row][col] === 1) {
-                    console.log(row, col)
-                    return dfs(row, col)
-                }
+    var longestCommonPrefix = function (strs) {
+        // 以第一个字符串为对照，后面的字符串都用startsWith进行判断
+        let result = ''
+        let firstStartsWith = ''
+        const [first] = strs
+        console.log(first)
+        for (let j = 0; j < first.length; j++) {
+            firstStartsWith += first[j]
+            if (strs.every(item => item.startsWith(firstStartsWith))) {
+                result = firstStartsWith
             }
         }
+        return result
     };
-    let grid = [[0, 1, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [1, 1, 0, 0]]
 
-    console.log(islandPerimeter(grid))
+    console.log(islandPerimeter(["flower", "flow", "flight"]))
 
 </script>
