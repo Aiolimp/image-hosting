@@ -1,19 +1,16 @@
 <script>
-    var longestCommonPrefix = function (strs) {
-        // 以第一个字符串为对照，后面的字符串都用startsWith进行判断
-        let result = ''
-        let firstStartsWith = ''
-        const [first] = strs
-        console.log(first)
-        for (let j = 0; j < first.length; j++) {
-            firstStartsWith += first[j]
-            if (strs.every(item => item.startsWith(firstStartsWith))) {
-                result = firstStartsWith
+    var reverseWords = function (s) {
+        let arr = s.split(" ")
+        let arr3 = []
+        for (let i of arr) {
+            i = i.split("")
+            for (let left = 0, right = i.length - 1; left < right; left++, right--) {
+                [i[left], i[right]] = [i[right], i[left]]
             }
+            i = i.join("")
+            arr3.push(i)
         }
-        return result
+        return arr3.join(" ")
     };
-
-    console.log(islandPerimeter(["flower", "flow", "flight"]))
-
+    console.log(reverseWords("Let's take LeetCode contest"))
 </script>
